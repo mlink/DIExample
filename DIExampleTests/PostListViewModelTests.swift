@@ -26,7 +26,7 @@ final class PostListViewModelTests: XCTestCase {
 
         let viewModel = PostListViewModel()
 
-        Task.detached {
+        Task {
             await viewModel.load()
         }
 
@@ -46,7 +46,7 @@ final class PostListViewModelTests: XCTestCase {
 
         let viewModel = PostListViewModel()
 
-        Task { @MainActor in
+        Task {
             await viewModel.load()
         }
         Task { @MainActor in
@@ -69,7 +69,7 @@ final class PostListViewModelTests: XCTestCase {
 
         let viewModel = PostListViewModel()
 
-        Task { @MainActor in
+        Task {
             await viewModel.load()
         }
         Task { @MainActor in
@@ -102,7 +102,7 @@ final class PostListViewModelTests: XCTestCase {
 
         let viewModel = PostListViewModel()
 
-        Task.detached {
+        Task {
             await viewModel.load()
         }
 
