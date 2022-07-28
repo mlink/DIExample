@@ -12,6 +12,8 @@ struct DIExampleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(PostListViewModel())
+                .environmentObject(PhotoGridViewModel())
         }
     }
 }
