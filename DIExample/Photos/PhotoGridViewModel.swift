@@ -11,7 +11,7 @@ import Factory
 import os
 
 final class PhotoGridViewModel: ObservableObject {
-    private let api = Container.typicode()
+    private let api = Container.shared.typicode()
 
     private let loadSubject = PassthroughSubject<Void, Never>()
 

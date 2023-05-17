@@ -123,7 +123,9 @@ private extension Typicode {
 }
 
 extension Container {
-    static let typicode = Factory<Typicodable> { Typicode() }
+    var typicode: Factory<Typicodable> {
+        Factory(self) { Typicode() }
+    }
 }
 
 #if DEBUG

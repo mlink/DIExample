@@ -667,7 +667,7 @@
 			repositoryURL = "https://github.com/hmlongco/Factory.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 		8FE4F207288EF62F00CF32A3 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
@@ -675,7 +675,7 @@
 			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

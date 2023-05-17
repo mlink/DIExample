@@ -13,16 +13,13 @@ import Factory
 
 final class PostListViewModelTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        Container.Registrations.push()
-    }
-
-    override func tearDownWithError() throws {
-        Container.Registrations.pop()
+    override func setUp() {
+        super.setUp()
+        Container.shared = Container()
     }
 
     func testViewModel() async throws {
-        Container.typicode.register { MockTypicode() }
+        Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
 
@@ -42,7 +39,7 @@ final class PostListViewModelTests: XCTestCase {
     }
 
     func testSearchResults() async throws {
-        Container.typicode.register { MockTypicode() }
+        Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
 
@@ -65,7 +62,7 @@ final class PostListViewModelTests: XCTestCase {
     }
 
     func testSearchResultsEmpty() async throws {
-        Container.typicode.register { MockTypicode() }
+        Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
 
@@ -98,7 +95,7 @@ final class PostListViewModelTests: XCTestCase {
             }
         }
 
-        Container.typicode.register { MockTypicodeError() }
+        Container.shared.typicode.register { MockTypicodeError() }
 
         let viewModel = PostListViewModel()
 

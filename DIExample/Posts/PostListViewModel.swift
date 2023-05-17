@@ -13,9 +13,9 @@ import Factory
 
 final class PostListViewModel: ObservableObject {
     // by assigning directly via service locator we can maintain that `api` is a constant
-    private let api = Container.typicode()
+    private let api = Container.shared.typicode()
     // using the property wrapper annotation style the api property must be a `var`
-//    @Injected(Container.typicode) private var api
+//    @Injected(\.typicode) private var api
 
     // similar to a `PassthroughSubject`
     private let loadChannel = AsyncChannel<Void>()

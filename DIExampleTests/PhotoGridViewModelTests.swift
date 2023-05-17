@@ -13,17 +13,18 @@ import Factory
 final class PhotoGridViewModelTests: XCTestCase {
     var cancellableSet = Set<AnyCancellable>()
 
-    override func setUpWithError() throws {
-        Container.Registrations.push()
+    override func setUp() {
+        super.setUp()
+        Container.shared = Container()
     }
 
-    override func tearDownWithError() throws {
-        Container.Registrations.pop()
+    override func tearDown() {
+        super.tearDown()
         cancellableSet.removeAll()
     }
 
     func testViewModel() throws {
-        Container.typicode.register { MockTypicode() }
+        Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PhotoGridViewModel()
         
@@ -50,7 +51,7 @@ final class PhotoGridViewModelTests: XCTestCase {
             }
         }
 
-        Container.typicode.register { MockTypicodeError() }
+        Container.shared.typicode.register { MockTypicodeError() }
 
         let viewModel = PhotoGridViewModel()
 

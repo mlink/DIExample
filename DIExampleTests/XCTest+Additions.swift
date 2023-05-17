@@ -31,7 +31,7 @@ extension XCTestCase {
             }
         }
 
-        wait(for: [e], timeout: seconds)
+        await fulfillment(of: [e], timeout: seconds)
         detachedTask.cancel()
         await detachedTask.value
     }
@@ -63,7 +63,7 @@ extension XCTestCase {
             }
         }
 
-        wait(for: [e], timeout: seconds)
+        await fulfillment(of: [e], timeout: seconds)
         detachedTask.cancel()
         try await detachedTask.value
     }
@@ -87,7 +87,7 @@ extension XCTestCase {
             await test(e)
         }
 
-        wait(for: [e], timeout: seconds)
+        await fulfillment(of: [e], timeout: seconds)
         detachedTask.cancel()
         await detachedTask.value
     }
@@ -105,7 +105,7 @@ extension XCTestCase {
             try await test(e)
         }
 
-        wait(for: [e], timeout: seconds)
+        await fulfillment(of: [e], timeout: seconds)
         detachedTask.cancel()
         try await detachedTask.value
     }

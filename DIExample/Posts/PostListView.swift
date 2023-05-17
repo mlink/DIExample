@@ -93,7 +93,7 @@ struct PostListView_Previews: PreviewProvider {
     }
 
     static var previews: some View {
-        let _ = Container.typicode.register { MockTypicode() }
+        let _ = Container.shared.typicode.register { MockTypicode() }
 
         PostListView()
             .environmentObject(PostListViewModel())
