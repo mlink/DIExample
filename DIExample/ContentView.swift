@@ -8,32 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection: Content?
+    
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: PostListView()) {
-                    Label("Posts", systemImage: "mail.stack")
-                }
-                NavigationLink(destination: PhotoGridView()) {
-                    Label("Photos", systemImage: "photo.on.rectangle.angled")
-                }
+        if #available(macOS 13.0, *) {
+            NavigationSplitView {
+                ContentSidebarList(selection: $selection)
+            } detail: {
+                ContentDetail(content: selection)
             }
-            .listStyle(.sidebar)
-
-            Text("Select a Category")
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Button(action: toggleSidebar, label: {
-                    Image(systemName: "sidebar.leading")
-                })
+        } else {
+            NavigationView {
+                // the List must be inline here otherwise the sidebar will be disabled
+                List(Content.allCases) { content in
+                    NavigationLink(destination: content.destination) {
+                        content.label
+                    }
+                }
+                .listStyle(.sidebar)
+                .navigationTitle("Dependency Injection Example")
+                
+                Text("No Selection")
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button(action: toggleSidebar, label: {
+                        Image(systemName: "sidebar.leading")
+                    })
+                }
             }
         }
     }
 
     private func toggleSidebar() {
-        #if os(iOS)
-        #else
+        #if os(macOS)
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
         #endif
     }
@@ -42,5 +50,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(PostListViewModel())
+            .environmentObject(PhotoGridViewModel())
     }
 }

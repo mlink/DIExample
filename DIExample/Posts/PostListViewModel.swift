@@ -19,7 +19,7 @@ final class PostListViewModel: ObservableObject {
 
     // similar to a `PassthroughSubject`
     private let loadChannel = AsyncChannel<Void>()
-    private var cachedPosts = [Typicode.Post]()
+    private(set) var cachedPosts = [Typicode.Post]()
 
     @MainActor @Published private(set) var filteredPosts = [Typicode.Post]()
     @MainActor @Published var searchText = ""
