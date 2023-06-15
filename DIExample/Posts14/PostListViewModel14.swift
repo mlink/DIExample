@@ -66,13 +66,9 @@ import os
         }
     }
 
-    func refresh() async {
-        await load()
-    }
-
     func refresh() {
         Task { @MainActor in
-            await load()
+            posts = try await posts()
         }
     }
 }
