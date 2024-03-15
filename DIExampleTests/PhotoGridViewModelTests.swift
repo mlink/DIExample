@@ -5,9 +5,9 @@
 //  Created by Michael Link on 7/27/22.
 //
 
-import XCTest
+@preconcurrency import XCTest
 import Combine
-import Factory
+@preconcurrency import Factory
 @testable import DIExample
 
 final class PhotoGridViewModelTests: XCTestCase {
@@ -15,28 +15,28 @@ final class PhotoGridViewModelTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        Container.shared = Container()
     }
 
     override func tearDown() {
         super.tearDown()
         cancellableSet.removeAll()
+        Container.shared.reset()
     }
 
     func testViewModel() throws {
         Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PhotoGridViewModel()
+        let expectation = expectation(description: "\(#function)")
         
-        try wait { expectation in
-            viewModel.$photos.sink { output in
-                if output == [Typicode.Photo].stub(count: 1) {
-                    expectation.fulfill()
-                }
-            }.store(in: &cancellableSet)
+        viewModel.$photos.sink { output in
+            if output == [Typicode.Photo].stub(count: 1) {
+                expectation.fulfill()
+            }
+        }.store(in: &cancellableSet)
 
-            viewModel.load()
-        }
+        viewModel.load()
+        wait(for: [expectation])
     }
 
     func testViewModelError() throws {
@@ -54,15 +54,16 @@ final class PhotoGridViewModelTests: XCTestCase {
         Container.shared.typicode.register { MockTypicodeError() }
 
         let viewModel = PhotoGridViewModel()
+        let expectation = expectation(description: "\(#function)")
+       
+        
+        viewModel.$showAlert.sink { output in
+            if output, let error = viewModel.currentError, case MockTypicodeError.MockError.mockError = error {
+                expectation.fulfill()
+            }
+        }.store(in: &cancellableSet)
 
-        try wait { expectation in
-            viewModel.$showAlert.sink { output in
-                if output, let error = viewModel.currentError, case MockTypicodeError.MockError.mockError = error {
-                    expectation.fulfill()
-                }
-            }.store(in: &cancellableSet)
-
-            viewModel.load()
-        }
+        viewModel.load()
+        wait(for: [expectation])
     }
 }

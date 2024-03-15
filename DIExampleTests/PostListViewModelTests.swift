@@ -5,20 +5,24 @@
 //  Created by Michael Link on 7/26/22.
 //
 
-import XCTest
+@preconcurrency import XCTest
 import Combine
 import AsyncAlgorithms
-import Factory
+@preconcurrency import Factory
 @testable import DIExample
 
 final class PostListViewModelTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        Container.shared = Container()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        Container.shared.reset()
     }
 
-    func testViewModel() async throws {
+    @MainActor func testViewModel() async throws {
         Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
@@ -27,18 +31,21 @@ final class PostListViewModelTests: XCTestCase {
             await viewModel.load()
         }
 
-        await wait { exception in
+        let expectation = expectation(description: "\(#function)")
+        
+        Task {
             for await posts in viewModel.$filteredPosts.values {
                 if posts == [Typicode.Post].stub(count: 1) {
+                    expectation.fulfill()
                     break
                 }
             }
-
-            exception.fulfill()
         }
+        
+        await fulfillment(of: [expectation])
     }
 
-    func testSearchResults() async throws {
+    @MainActor func testSearchResults() async throws {
         Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
@@ -46,22 +53,25 @@ final class PostListViewModelTests: XCTestCase {
         Task {
             await viewModel.load()
         }
-        Task { @MainActor in
+        Task {
             viewModel.searchText = "title"
         }
+        
+        let expectation = expectation(description: "\(#function)")
 
-        await wait { exception in
+        Task {
             for await posts in viewModel.$filteredPosts.values {
-                if posts == [Typicode.Post].stub(count: 1), await viewModel.searchText == "title" {
+                if posts == [Typicode.Post].stub(count: 1), viewModel.searchText == "title" {
+                    expectation.fulfill()
                     break
                 }
             }
-
-            exception.fulfill()
         }
+        
+        await fulfillment(of: [expectation])
     }
 
-    func testSearchResultsEmpty() async throws {
+    @MainActor func testSearchResultsEmpty() async throws {
         Container.shared.typicode.register { MockTypicode() }
 
         let viewModel = PostListViewModel()
@@ -69,22 +79,25 @@ final class PostListViewModelTests: XCTestCase {
         Task {
             await viewModel.load()
         }
-        Task { @MainActor in
+        Task {
             viewModel.searchText = "foo"
         }
+        
+        let expectation = expectation(description: "\(#function)")
 
-        await wait { exception in
+        Task {
             for await posts in viewModel.$filteredPosts.values {
-                if posts.isEmpty, await viewModel.searchText == "foo" {
+                if posts.isEmpty, viewModel.searchText == "foo" {
+                    expectation.fulfill()
                     break
                 }
             }
-
-            exception.fulfill()
         }
+        
+        await fulfillment(of: [expectation])
     }
 
-    func testViewModelError() async throws {
+    @MainActor func testViewModelError() async throws {
         class MockTypicodeError: MockTypicode {
             enum MockError: Error {
                 case mockError
@@ -102,13 +115,18 @@ final class PostListViewModelTests: XCTestCase {
         Task {
             await viewModel.load()
         }
+        
+        let expectation = expectation(description: "\(#function)")
 
-        await assert {
-            guard await viewModel.showAlert == true, let error = await viewModel.currentError, case MockTypicodeError.MockError.mockError = error else {
-                return false
+        Task {
+            for await showAlert in viewModel.$showAlert.values where showAlert == true {
+                if let error = viewModel.currentError, case MockTypicodeError.MockError.mockError = error {
+                    expectation.fulfill()
+                    break
+                }
             }
-
-            return true
         }
+        
+        await fulfillment(of: [expectation])
     }
 }

@@ -40,7 +40,7 @@ struct ContentView: View {
         }
     }
 
-    private func toggleSidebar() {
+    @MainActor private func toggleSidebar() {
         #if os(macOS)
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
         #endif

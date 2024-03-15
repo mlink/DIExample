@@ -35,7 +35,7 @@ extension Content {
         }
     }
     
-    @ViewBuilder var destination: some View {
+    @MainActor @ViewBuilder var destination: some View {
         switch self {
         case .posts14:
             if #available(macOS 14.0, *) {

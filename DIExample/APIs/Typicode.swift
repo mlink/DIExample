@@ -8,11 +8,11 @@
 import Foundation
 import Combine
 import os
-import Factory
+@preconcurrency import Factory
 
 // very simple API to fetch some sample data
 
-protocol Typicodable {
+protocol Typicodable: Sendable {
     func posts() -> AnyPublisher<Result<[Typicode.Post], Error>, Never>
     func posts() async throws -> [Typicode.Post]
 
@@ -23,7 +23,7 @@ protocol Typicodable {
 final class Typicode: Typicodable {
     private let decoder = JSONDecoder()
 
-    private func dataTaskPublisher<D>(for url: URL) -> AnyPublisher<Result<D, Error>, Never> where D: Decodable {
+    private func dataTaskPublisher<D>(for url: URL) -> AnyPublisher<Result<D, Error>, Never> where D : Decodable {
         return Self.urlSession
             .dataTaskPublisher(for: url)
             .tryMap({ data, response -> Data in
@@ -100,8 +100,8 @@ extension Typicode {
 }
 
 private extension Typicode {
-    final class SessionDelegate: NSObject, URLSessionDelegate {
-        func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    final class SessionDelegate: NSObject, URLSessionDelegate, Sendable {
+        func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
             let protectionSpace = challenge.protectionSpace
 
             guard protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust else {
@@ -124,7 +124,7 @@ private extension Typicode {
 
 extension Container {
     var typicode: Factory<Typicodable> {
-        Factory(self) { Typicode() }
+        self { Typicode() }.shared
     }
 }
 

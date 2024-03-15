@@ -7,22 +7,22 @@
 
 import Foundation
 import Observation
-import Factory
 import os
+@preconcurrency import Factory
 
 @available(macOS 14.0, *)
-@Observable final class PostListViewModel14 {
+@Observable @MainActor final class PostListViewModel14 {
     // by assigning directly via service locator we can maintain that `api` is a constant
     private let api = Container.shared.typicode()
     // using the property wrapper annotation style the api property must be a `var`
 //    @Injected(\.typicode) private var api
 
-    @MainActor private(set) var posts = [Typicode.Post]()
-    @MainActor private(set) var filteredPosts = [Typicode.Post]()
-    @MainActor var searchText = ""
-    @MainActor private(set) var isLoading = false
-    @MainActor var showAlert = false
-    @MainActor private(set) var currentError: Error! = nil {
+    private(set) var posts = [Typicode.Post]()
+    private(set) var filteredPosts = [Typicode.Post]()
+    var searchText = ""
+    private(set) var isLoading = false
+    var showAlert = false
+    private(set) var currentError: Error! = nil {
         didSet {
             guard currentError != nil else {
                 return
@@ -32,7 +32,7 @@ import os
         }
     }
 
-    @MainActor private func posts() async throws -> [Typicode.Post] {
+    private func posts() async throws -> [Typicode.Post] {
         isLoading = true
         defer { isLoading = false }
 
@@ -47,7 +47,7 @@ import os
         }
     }
 
-    @MainActor func load() async {
+    func load() async {
         do {
             posts = try await posts()
             filterPosts()
@@ -56,7 +56,7 @@ import os
         }
     }
     
-    @MainActor private func filterPosts() {
+    private func filterPosts() {
         withObservationTracking {
             filteredPosts = posts.filter { searchText.isEmpty || $0.title.localizedCaseInsensitiveContains(searchText) }
         } onChange: {
@@ -67,7 +67,7 @@ import os
     }
 
     func refresh() {
-        Task { @MainActor in
+        Task {
             posts = try await posts()
         }
     }

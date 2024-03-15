@@ -7,8 +7,8 @@
 
 import Foundation
 import Combine
-import Factory
 import os
+@preconcurrency import Factory
 
 final class PhotoGridViewModel: ObservableObject {
     private let api = Container.shared.typicode()

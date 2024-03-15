@@ -9,9 +9,9 @@ import Foundation
 import Combine
 import AsyncAlgorithms
 import os
-import Factory
+@preconcurrency import Factory
 
-final class PostListViewModel: ObservableObject {
+@MainActor final class PostListViewModel: ObservableObject {
     // by assigning directly via service locator we can maintain that `api` is a constant
     private let api = Container.shared.typicode()
     // using the property wrapper annotation style the api property must be a `var`
@@ -21,11 +21,11 @@ final class PostListViewModel: ObservableObject {
     private let loadChannel = AsyncChannel<Void>()
     private(set) var cachedPosts = [Typicode.Post]()
 
-    @MainActor @Published private(set) var filteredPosts = [Typicode.Post]()
-    @MainActor @Published var searchText = ""
-    @MainActor @Published private(set) var isLoading = false
-    @MainActor @Published var showAlert = false
-    @MainActor private(set) var currentError: Error! {
+    @Published private(set) var filteredPosts = [Typicode.Post]()
+    @Published var searchText = ""
+    @Published private(set) var isLoading = false
+    @Published var showAlert = false
+    private(set) var currentError: Error! {
         didSet {
             guard currentError != nil else {
                 return
@@ -35,7 +35,7 @@ final class PostListViewModel: ObservableObject {
         }
     }
 
-    @MainActor private func posts() async throws -> [Typicode.Post] {
+    private func posts() async throws -> [Typicode.Post] {
         isLoading = true
         defer { isLoading = false }
 
@@ -47,7 +47,7 @@ final class PostListViewModel: ObservableObject {
         }
     }
 
-    @MainActor func load() async {
+    func load() async {
         let searchTextStream = $searchText
             .debounce(for: 0.2, scheduler: DispatchQueue.main)
             .values

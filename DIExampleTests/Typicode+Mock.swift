@@ -21,7 +21,8 @@ extension Typicode.Photo: Stub {
     }
 }
 
-class MockTypicode: Typicodable {
+// `@unchecked Sendable` is fine for testing
+class MockTypicode: Typicodable, @unchecked Sendable {
     func posts() -> AnyPublisher<Result<[Typicode.Post], Error>, Never> {
         return Just(Result.success([Typicode.Post].stub(count: 1)))
             .eraseToAnyPublisher()
