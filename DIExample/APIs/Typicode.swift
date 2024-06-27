@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 import os
-@preconcurrency import Factory
+import Factory
 
 // very simple API to fetch some sample data
 

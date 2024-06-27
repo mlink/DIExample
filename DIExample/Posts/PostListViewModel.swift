@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import Combine
+@preconcurrency import Combine
 import AsyncAlgorithms
 import os
-@preconcurrency import Factory
+import Factory
 
 @MainActor final class PostListViewModel: ObservableObject {
     // by assigning directly via service locator we can maintain that `api` is a constant
@@ -18,7 +18,7 @@ import os
 //    @Injected(\.typicode) private var api
 
     // similar to a `PassthroughSubject`
-    private let loadChannel = AsyncChannel<Void>()
+    nonisolated private let loadChannel = AsyncChannel<Void>()
     private(set) var cachedPosts = [Typicode.Post]()
 
     @Published private(set) var filteredPosts = [Typicode.Post]()

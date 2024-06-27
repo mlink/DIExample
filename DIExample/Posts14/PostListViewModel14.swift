@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 import os
-@preconcurrency import Factory
+import Factory
 
 @available(macOS 14.0, *)
 @Observable @MainActor final class PostListViewModel14 {

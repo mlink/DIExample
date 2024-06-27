@@ -112,7 +112,7 @@ struct PostListView: View {
 
 #if DEBUG
 import Combine
-@preconcurrency import Factory
+import Factory
 
 struct PostListView_Previews: PreviewProvider {
     private final class MockTypicode: Typicodable {
