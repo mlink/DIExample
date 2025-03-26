@@ -10,6 +10,7 @@
 		8F0250A02891ACC400F01348 /* Typicode+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F02509F2891ACC400F01348 /* Typicode+Mock.swift */; };
 		8F2287B92A322F250095CD7E /* PostListView14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2287B82A3220E90095CD7E /* PostListView14.swift */; };
 		8F2287BA2A322F280095CD7E /* PostListViewModel14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2287B72A3220D90095CD7E /* PostListViewModel14.swift */; };
+		8F4498DE2D949896005B0D03 /* TimerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4498DD2D949892005B0D03 /* TimerTask.swift */; };
 		8F49DF732891C90E0017CFDF /* AsyncChannel+Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49DF722891C90E0017CFDF /* AsyncChannel+Void.swift */; };
 		8F49DF75289215780017CFDF /* PhotoGridViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F49DF74289215780017CFDF /* PhotoGridViewModelTests.swift */; };
 		8F72EDF62A3A2C9500C733EF /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F72EDF52A3A2C9500C733EF /* Content.swift */; };
@@ -56,6 +57,7 @@
 		8F02509F2891ACC400F01348 /* Typicode+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Typicode+Mock.swift"; sourceTree = "<group>"; };
 		8F2287B72A3220D90095CD7E /* PostListViewModel14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewModel14.swift; sourceTree = "<group>"; };
 		8F2287B82A3220E90095CD7E /* PostListView14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListView14.swift; sourceTree = "<group>"; };
+		8F4498DD2D949892005B0D03 /* TimerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTask.swift; sourceTree = "<group>"; };
 		8F49DF722891C90E0017CFDF /* AsyncChannel+Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AsyncChannel+Void.swift"; sourceTree = "<group>"; };
 		8F49DF74289215780017CFDF /* PhotoGridViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGridViewModelTests.swift; sourceTree = "<group>"; };
 		8F72EDF52A3A2C9500C733EF /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
@@ -119,6 +121,14 @@
 			path = Posts14;
 			sourceTree = "<group>";
 		};
+		8F4498DC2D94987C005B0D03 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				8F4498DD2D949892005B0D03 /* TimerTask.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		8F72EDF72A3A2CDF00C733EF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 				8FE4F20228887BC800CF32A3 /* Photos */,
 				8F72EDF72A3A2CDF00C733EF /* Extensions */,
 				8FE4F1F828885EE400CF32A3 /* APIs */,
+				8F4498DC2D94987C005B0D03 /* Types */,
 				8FE4F1CE2888596A00CF32A3 /* Assets.xcassets */,
 				8FE4F1D32888596A00CF32A3 /* DIExample.entitlements */,
 				8FE4F1D02888596A00CF32A3 /* Preview Content */,
@@ -300,7 +311,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					8FE4F1C62888596700CF32A3 = {
 						CreatedOnToolsVersion = 14.0;
@@ -375,6 +386,7 @@
 				8F2287BA2A322F280095CD7E /* PostListViewModel14.swift in Sources */,
 				8FE4F20628888F4D00CF32A3 /* PhotoGridView.swift in Sources */,
 				8F49DF732891C90E0017CFDF /* AsyncChannel+Void.swift in Sources */,
+				8F4498DE2D949896005B0D03 /* TimerTask.swift in Sources */,
 				8FE4F1FA28885F0100CF32A3 /* Typicode.swift in Sources */,
 				8F72EDFA2A3A31E400C733EF /* ContentSidebarList.swift in Sources */,
 				8FE4F1CD2888596700CF32A3 /* ContentView.swift in Sources */,
@@ -461,6 +473,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 483DWKW443;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -478,7 +491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -486,6 +499,19 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -525,6 +551,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 483DWKW443;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -536,13 +563,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -557,7 +597,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DIExample/Preview Content\"";
-				DEVELOPMENT_TEAM = 483DWKW443;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -570,7 +609,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -585,7 +623,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"DIExample/Preview Content\"";
-				DEVELOPMENT_TEAM = 483DWKW443;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -598,7 +635,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -609,14 +645,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 483DWKW443;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DIExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DIExample";
 			};
 			name = Debug;
@@ -628,14 +661,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 483DWKW443;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DIExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DIExample";
 			};
 			name = Release;
@@ -646,13 +676,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 483DWKW443;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = DIExample;
 			};
 			name = Debug;
@@ -663,13 +691,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 483DWKW443;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamf.DIExampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = DIExample;
 			};
 			name = Release;

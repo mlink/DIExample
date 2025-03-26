@@ -24,6 +24,7 @@ struct PostList: View {
     }
 }
 
+#if DEBUG
 @available(macOS 13.0, *)
 struct PostList_Previews: PreviewProvider {
     static var previews: some View {
@@ -34,3 +35,4 @@ struct PostList_Previews: PreviewProvider {
         }
     }
 }
+#endif

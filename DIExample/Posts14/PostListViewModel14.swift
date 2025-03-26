@@ -31,13 +31,33 @@ import Factory
             showAlert = true
         }
     }
+    private(set) var secondsSinceLastRefresh = 0
+    @ObservationIgnored private var timerTask: TimerTask?
+
+    deinit {
+        timerTask?.cancel()
+        print("☠️ \(Self.self) \(#function)")
+    }
+
+    private func startTimer() {
+        timerTask?.cancel()
+        timerTask = .repeating(interval: .seconds(1), operation: { [weak self] in
+            self?.secondsSinceLastRefresh += 1
+        })
+    }
 
     private func posts() async throws -> [Typicode.Post] {
+        timerTask?.cancel()
+        secondsSinceLastRefresh = 0
         isLoading = true
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+            startTimer()
+        }
 
         do {
-            try? await Task.sleep(for: .seconds(1))
+            // uncomment to simulate a load delay
+//            try? await Task.sleep(for: .seconds(1))
             // uncomment to simulate an error
 //            throw CancellationError()
             return try await api.posts()
@@ -59,7 +79,9 @@ import Factory
     private func filterPosts() {
         withObservationTracking {
             filteredPosts = posts.filter { searchText.isEmpty || $0.title.localizedCaseInsensitiveContains(searchText) }
-        } onChange: {
+        } onChange: { [weak self] in
+            guard let self else { return }
+
             Task { @MainActor in
                 self.filterPosts()
             }

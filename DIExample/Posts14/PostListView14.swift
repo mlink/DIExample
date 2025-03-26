@@ -42,6 +42,9 @@ import SwiftUI
         .navigationTitle("Posts14")
         .toolbar {
             ToolbarItem(placement: .automatic) {
+                Text("\(viewModel.secondsSinceLastRefresh)")
+            }
+            ToolbarItem(placement: .automatic) {
                 Button {
                     viewModel.refresh()
                 } label: {
