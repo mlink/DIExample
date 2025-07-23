@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(macOS 14.0, *)
-@MainActor struct PostListView14: View {
+struct PostListView14: View {
     @Bindable private var viewModel = PostListViewModel14()
     @State private var selection: Typicode.Post?
 
