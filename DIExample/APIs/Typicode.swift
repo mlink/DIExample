@@ -84,6 +84,7 @@ final class Typicode: Typicodable {
 }
 
 extension Typicode {
+    // MARK: these are the model objects
     struct Post: Codable, Hashable, Identifiable {
         var id: UInt
         var userId: UInt

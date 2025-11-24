@@ -98,7 +98,7 @@ final class PostListViewModelTests: XCTestCase {
     }
 
     @MainActor func testViewModelError() async throws {
-        class MockTypicodeError: MockTypicode {
+        class MockTypicodeError: MockTypicode, @unchecked Sendable {
             enum MockError: Error {
                 case mockError
             }

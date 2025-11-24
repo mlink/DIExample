@@ -42,8 +42,11 @@ struct PostListView14: View {
         .navigationTitle("Posts14")
         .toolbar {
             ToolbarItem(placement: .automatic) {
-                Text("\(viewModel.secondsSinceLastRefresh)")
+                Text("\(viewModel.secondsSinceLastRefresh, format: .number)")
+                    .fontDesign(.monospaced)
             }
+            .hideSharedBackgroundIfAvailable()
+
             ToolbarItem(placement: .automatic) {
                 Button {
                     viewModel.refresh()
@@ -57,6 +60,16 @@ struct PostListView14: View {
             if viewModel.filteredPosts.isEmpty {
                 await viewModel.load()
             }
+        }
+    }
+}
+
+extension ToolbarContent {
+    @ToolbarContentBuilder func hideSharedBackgroundIfAvailable() -> some ToolbarContent {
+        if #available(macOS 26.0, *) {
+            sharedBackgroundVisibility(.hidden)
+        } else {
+            self
         }
     }
 }
